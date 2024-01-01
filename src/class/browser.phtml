@@ -1,0 +1,55 @@
+<?php
+/**
+ * Created D/24/12/2023
+ * Updated D/24/12/2023
+ *
+ * Copyright 2008-2024 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * https://github.com/luigifab/dolibarr-apijs
+ *
+ * This program is free software, you can redistribute it or modify
+ * it under the terms of the GNU General Public License (GPL) as published
+ * by the free software foundation, either version 2 of the license, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but without any warranty, without even the implied warranty of
+ * merchantability or fitness for a particular purpose. See the
+ * GNU General Public License (GPL) for more details.
+ */
+
+{
+	require_once(__DIR__.'/useragentparser.class.php');
+	$data = (new Useragentparser())->parse();
+
+	if (!empty($data['browser']) && !empty($data['version'])) {
+		$data['version'] = empty($_GET['browser']) ? (float) $data['version'] : 1;
+		if (($data['browser'] == 'MSIE') && ($data['version'] < 15)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Internet Explorer', $data['version'], 'href="https://www.microsoft.com/windows/microsoft-edge"');
+		}
+		else if (($data['browser'] == 'Edge') && ($data['version'] < 16)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Edge', $data['version'], 'href="https://www.microsoft.com/windows/microsoft-edge"');
+		}
+		else if (($data['browser'] == 'Firefox') && ($data['version'] < 36)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Firefox', $data['version'], 'href="https://www.mozilla.org/firefox"');
+		}
+		else if (($data['browser'] == 'Chrome') && ($data['version'] < 31)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Chrome', $data['version'], 'href="https://www.google.com/chrome"');
+		}
+		else if (($data['browser'] == 'Opera') && ($data['version'] < 19)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Opera', $data['version'], 'href="https://www.opera.com/"');
+		}
+		else if (($data['browser'] == 'Safari') && ($data['version'] < 9)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$text = $langs->trans('ApijsBrowserWarning', 'Safari', $data['version'], 'href="https://www.apple.com/safari/"');
+		}
+
+		if (!empty($text)) {
+			echo '<div class="error" id="oldBrowser">',str_replace('&quot;', '"', $text),'</div>';
+		}
+	}
+}
