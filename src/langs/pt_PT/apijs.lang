@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Cuidado:</strong> o seu navegador <strong>%s %s</strong> está desatualizado, por favor <a %s>atualize o seu navegador</a>.
+ApijsExampleTitle1 = Manual do PHP
+ApijsExampleText1 = É importante notar que somente pelo o e-mail ser aceito para entrega, não significa que o e-mail alcancará o destino esperado.
+ApijsExample = Exemplo %d
+ApijsExampleTitle2 = Surpresa!
+ApijsExampleText2 = Está a ver este vídeo sem extensão proprietário graças ao novo marcador [em]video[/em] integrado no linguagem [strong]HTML 5[/strong].
+ApijsExampleText3 = Sítio Web: %s

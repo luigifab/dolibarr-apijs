@@ -1,9 +1,9 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated D/24/12/2023
+ * Updated D/09/03/2025
  *
- * Copyright 2008-2024 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
  *
  * This program is free software, you can redistribute it or modify
@@ -17,7 +17,9 @@
  * GNU General Public License (GPL) for more details.
  */
 
-class ActionsApijs {
+require_once(DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php');
+
+class ActionsApijs extends CommonHookActions { // HERE before Dolibarr 19.0.0 remove:  extends CommonHookActions
 
 	public function addHtmlHeader($parameters, &$object, &$action, $hookmanager) {
 
@@ -30,7 +32,9 @@ class ActionsApijs {
 			$html .= '<link rel="prefetch" type="font/woff2" as="font" href="'.$this->getLru($conf, 'fonts/apijs/fontello.woff2').'">'."\n";
 			$html .= '<script nonce="'.getNonce().'" src="'.$this->getUrl($conf, 'js/apijs.min.js').'"></script>'."\n";
 
-			if (empty($hookmanager->resPrint))
+			if (version_compare(DOL_VERSION, '19.0.0', '>='))
+				$this->resprints = $html;
+			else if (empty($hookmanager->resPrint))
 				$hookmanager->resPrint = $html;
 			else
 				$hookmanager->resPrint .= $html;
@@ -53,7 +57,9 @@ class ActionsApijs {
 				$html = '<script nonce="'.getNonce().'">alert("Apijs: '.addslashes($t->getMessage()).'");</script>'."\n";
 			}
 
-			if (empty($hookmanager->resPrint))
+			if (version_compare(DOL_VERSION, '19.0.0', '>='))
+				$this->resprints = $html;
+			else if (empty($hookmanager->resPrint))
 				$hookmanager->resPrint = $html;
 			else
 				$hookmanager->resPrint .= $html;
@@ -63,7 +69,7 @@ class ActionsApijs {
 	}
 
 	protected function getUrl($conf, $file) {
-		return dol_buildpath('custom/apijs/'.$file, 1).'?v=696';
+		return dol_buildpath('custom/apijs/'.$file, 1).'?v=697';
 	}
 
 	protected function getLru($conf, $file) {

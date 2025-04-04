@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Attenzione:</strong> il vostro browser <strong>%s %s</strong> è obsoleto, vi preghiamo di <a %s>aggiornare il vostro browser</a>.
+ApijsExampleTitle1 = Manuale PHP
+ApijsExampleText1 = È importante notare che il fatto che la mail sia stata accettata, non significa che arriverà a destinazione.
+ApijsExample = Esempio %d
+ApijsExampleTitle2 = Sorpresa!
+ApijsExampleText2 = State guardando questo video senza estensione proprietario grazie al nuovo tag [em]video[/em] integrato nel linguaggio [strong]HTML 5[/strong].
+ApijsExampleText3 = Sito internet: %s

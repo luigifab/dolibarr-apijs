@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Achtung:</strong> Ihr Browser <strong>%s %s</strong> ist veraltet. Bitte <a %s>laden Sie eine neue Version Ihres Browser runter</a>.
+ApijsExampleTitle1 = PHP-Handbuch
+ApijsExampleText1 = Dass eine E-Mail für den Versand akzeptiert wurde, bedeutet nicht, dass sie auch wirklich den gewünschten Empfänger erreichen wird.
+ApijsExample = Beispiel %d
+ApijsExampleTitle2 = Überraschung!
+ApijsExampleText2 = Sie sehen dieses Video ohne Erweiterung dank dem neuen [em]video[/em] Tag welches im Standard [strong]HTML 5[/strong] integriert ist.
+ApijsExampleText3 = Website: %s

@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Uyari :</strong> tarayıcınız <strong>%s %s</strong> eski, lütfen <a %s>güncelleyiniz</a>.
+ApijsExampleTitle1 = PHP Kılavuzu
+ApijsExampleText1 = Yalnız şuna dikkat edin : Epostanın sunucu tarafından teslim alınması, epostanın alıcısına ulaştığı anlamına gelmez.
+ApijsExample = Örnek %d
+ApijsExampleTitle2 = Sürpriz!
+ApijsExampleText2 = Bu videoyu [strong]HTML 5[/strong] dilindeki [em]video[/em] tanımlayıcısı sayesinde herhangi bir eklentiye ihtiyaç olmadan izlemektesiniz.
+ApijsExampleText3 = Web sitesi : %s

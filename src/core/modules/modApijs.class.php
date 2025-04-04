@@ -1,9 +1,9 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated D/24/12/2023
+ * Updated D/09/03/2025
  *
- * Copyright 2008-2024 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
  *
  * This program is free software, you can redistribute it or modify
@@ -32,7 +32,7 @@ class modApijs extends DolibarrModules {
 		$this->family                = 'base';
 		$this->name                  = 'Apijs';
 		$this->module_parts          = ['hooks' => ['main']];
-		$this->version               = '6.9.6';
+		$this->version               = '6.9.7';
 		$this->description           = 'JavaScript pop-ups and slideshow for Dolibarr.';
 		$this->const_name            = 'MAIN_MODULE_'.strtoupper($this->name); // not mb_strtoupper
 		$this->langfiles             = ['apijs@apijs'];
@@ -41,10 +41,17 @@ class modApijs extends DolibarrModules {
 		$this->url_last_version      = 'https://raw.githubusercontent.com/luigifab/dolibarr-apijs/master/version.txt';
 		$this->hidden                = false;
 
-		global $conf;
+		global $conf, $langs;
 		if (!isset($conf->apijs->enabled)) {
 			$conf->apijs = new stdClass();
 			$conf->apijs->enabled = 0;
+		}
+		else if (!empty($conf->apijs->enabled)) {
+			$langs->loadLangs(['apijs@apijs']);
+			$this->description = implode(' ', [
+				'<button type="button" onclick="apijs.dialog.dialogInformation(\''.$langs->trans('ApijsExampleTitle1').'\',\''.addslashes($langs->trans('ApijsExampleText1')).'\');">'.$langs->trans('ApijsExample', 1).'</button>',
+				'<button type="button" onclick="apijs.dialog.dialogInformation(\''.$langs->trans('ApijsExampleTitle2').'\',\'[p]'.addslashes($langs->trans('ApijsExampleText2')).'[/p][p]'.addslashes($langs->trans('ApijsExampleText3', '[a href=\'https://www.luigifab.fr/\' class=\'popup\']www.luigifab.fr[/a]')).'[/p]\');">'.$langs->trans('ApijsExample', 2).'</button>',
+			]).' '.$this->description;
 		}
 	}
 }

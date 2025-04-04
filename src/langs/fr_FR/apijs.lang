@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Attention :</strong> votre navigateur <strong>%s %s</strong> n'est plus à jour, veuillez <a %s>mettre à jour votre navigateur</a>.
+ApijsExampleTitle1 = Manuel PHP
+ApijsExampleText1 = Il est important de noter que ce n'est pas parce que l'email a été accepté pour livraison, qu'il arrivera à destination.
+ApijsExample = Exemple %d
+ApijsExampleTitle2 = Surprise !
+ApijsExampleText2 = Vous regardez cette vidéo sans extension propriétaire grâce à la nouvelle balise [em]video[/em] intégrée dans le langage [strong]HTML 5[/strong].
+ApijsExampleText3 = Site internet : %s

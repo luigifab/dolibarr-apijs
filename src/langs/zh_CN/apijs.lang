@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Warning:</strong> your browser <strong>%s %s</strong> is outdated, please <a %s>upgrade your browser</a>.
+ApijsExampleTitle1 = PHP手册
+ApijsExampleText1 = 值得注意的是，邮件发送完成并不意味着邮件将实际到达预定的目的地。
+ApijsExample = Example %d
+ApijsExampleTitle2 = 惊喜！
+ApijsExampleText2 = 由于[strong]HTML 5 语言[/strong]中包含的全新的[em]视频[/em]标签，因此您无需安装扩展功能即可查看此视频。
+ApijsExampleText3 = 网站：%s

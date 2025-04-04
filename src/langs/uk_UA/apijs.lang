@@ -1,1 +1,7 @@
 ApijsBrowserWarning = <strong>Warning:</strong> your browser <strong>%s %s</strong> is outdated, please <a %s>upgrade your browser</a>.
+ApijsExampleTitle1 = PHP manual
+ApijsExampleText1 = It is important to note that just because the mail was accepted for delivery, it doesn't mean the mail will actually reach the intended destination.
+ApijsExample = Example %d
+ApijsExampleTitle2 = Surprise!
+ApijsExampleText2 = You are watching this video without proprietary extension thanks to the new [em]video[/em] tag included in the [strong]HTML 5[/strong] language.
+ApijsExampleText3 = Вебсайт: %s
