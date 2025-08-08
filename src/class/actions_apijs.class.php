@@ -1,7 +1,7 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated D/09/03/2025
+ * Updated L/28/07/2025
  *
  * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
@@ -19,7 +19,16 @@
 
 require_once(DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php');
 
-class ActionsApijs extends CommonHookActions { // HERE before Dolibarr 19.0.0 remove:  extends CommonHookActions
+if (version_compare(DOL_VERSION, '19.0.0', '<') && !class_exists('CommonHookActions')) {
+	class CommonHookActions {
+		// compat
+	}
+}
+
+class ActionsApijs extends CommonHookActions {
+
+	public $error = 0;
+	public $errors = [];
 
 	public function addHtmlHeader($parameters, &$object, &$action, $hookmanager) {
 
@@ -69,7 +78,7 @@ class ActionsApijs extends CommonHookActions { // HERE before Dolibarr 19.0.0 re
 	}
 
 	protected function getUrl($conf, $file) {
-		return dol_buildpath('custom/apijs/'.$file, 1).'?v=697';
+		return dol_buildpath('custom/apijs/'.$file, 1).'?v=698';
 	}
 
 	protected function getLru($conf, $file) {

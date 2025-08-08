@@ -1,7 +1,7 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated D/09/03/2025
+ * Updated L/30/06/2025
  *
  * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
@@ -32,7 +32,7 @@ class modApijs extends DolibarrModules {
 		$this->family                = 'base';
 		$this->name                  = 'Apijs';
 		$this->module_parts          = ['hooks' => ['main']];
-		$this->version               = '6.9.7';
+		$this->version               = '6.9.8';
 		$this->description           = 'JavaScript pop-ups and slideshow for Dolibarr.';
 		$this->const_name            = 'MAIN_MODULE_'.strtoupper($this->name); // not mb_strtoupper
 		$this->langfiles             = ['apijs@apijs'];
