@@ -1,4 +1,4 @@
-ApijsBrowserWarning = <strong>Achtung:</strong> Ihr Browser <strong>%s %s</strong> ist veraltet. Bitte <a %s>laden Sie eine neue Version Ihres Browser runter</a>.
+ApijsBrowserWarning = <strong>Achtung:</strong> Ihr Browser <strong>%s %s</strong> ist veraltet. Bitte <a %s>laden Sie eine neue Version Ihres Browsers herunter</a>.
 ApijsExampleTitle1 = PHP-Handbuch
 ApijsExampleText1 = Dass eine E-Mail für den Versand akzeptiert wurde, bedeutet nicht, dass sie auch wirklich den gewünschten Empfänger erreichen wird.
 ApijsExample = Beispiel %d

@@ -1,12 +1,13 @@
 <?php
 /**
- * Copyright 2013-2024 | Jesse G. Donat <donatj~gmail~com>
+ * Copyright 2013-2026 | Jesse G. Donat <donatj~gmail~com>
  * https://github.com/donatj/PhpUserAgent
  *
- * Copyright 2019-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
- * https://gist.github.com/luigifab/4cb373e75f3cd2f342ca6bc25504b149 (1.10.0-fork1)
+ * Copyright 2019-2026 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * https://gist.github.com/luigifab/4cb373e75f3cd2f342ca6bc25504b149 (1.12.0-fork1)
  *
  * Parses a user agent string into its important parts
+ * Fork checked by Claude from the original
  * Licensed under the MIT License
  */
 
@@ -14,13 +15,13 @@ class Useragentparser {
 
 	public function parse($userAgent = null) {
 
-		if (empty($userAgent)) $userAgent = getenv('HTTP_USER_AGENT');
+		if ($userAgent === null) $userAgent = getenv('HTTP_USER_AGENT');
 
 		$platform = null;
 		$browser  = null;
 		$version  = null;
 		$empty    = ['platform' => $platform, 'browser' => $browser, 'version' => $version];
-		$priority = ['Xbox One', 'Xbox', 'Windows Phone', 'Tizen', 'Android', 'FreeBSD', 'NetBSD', 'OpenBSD', 'CrOS', 'Fuchsia', 'X11', 'Sailfish'];
+		$priority = ['Xbox One','Xbox','Windows Phone','Tizen','Android','FreeBSD','NetBSD','OpenBSD','CrOS','Fuchsia','X11','Sailfish'];
 
 		if (empty($userAgent)) return $empty;
 
@@ -57,21 +58,29 @@ class Useragentparser {
 
 
 		preg_match_all( // ["browser" => ["Firefox"...], "version" => ["45.0"...]]
-			'%(?P<browser>Camino|Kindle(\ Fire)?|Firefox|Thunderbird|Iceweasel|IceCat|Safari|MSIE|Trident|AppleWebKit|TizenBrowser|(?:Headless)?Chrome|YaBrowser|Vivaldi|IEMobile|Opera|OPR|Silk|Midori|(?-i:Edge)|EdgA?|CriOS|UCBrowser|Puffin|OculusBrowser|SamsungBrowser|SailfishBrowser|XiaoMi/MiuiBrowser|YaApp_Android|Whale|Baiduspider|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Wget|curl|ChatGPT-User|GPTBot|OAI-SearchBot|Valve\ Steam\ Tenfoot|Mastodon|NintendoBrowser|PLAYSTATION\ (?:\d|Vita)+)\)?;?(?:[:/ ](?P<version>[\dA-Z.]+)|/[A-Z]*)%ix',
+			'%(?P<prev>.)?(?P<browser>Camino|Kindle(\ Fire)?|Firefox|Thunderbird|Iceweasel|IceCat|Safari|MSIE|Trident|AppleWebKit|TizenBrowser|(?:Headless)?Chrome|YaBrowser|Vivaldi|IEMobile|Opera|OPR|Silk|Midori|(?-i:Edge)|EdgA?|CriOS|UCBrowser|Puffin|OculusBrowser|SamsungBrowser|SailfishBrowser|XiaoMi/MiuiBrowser|YaApp_Android|Whale|Applebot|Facebot|Googlebot|YandexBot|bingbot|Lynx|Version|Valve\ Steam\ Tenfoot|Mastodon|NintendoBrowser|PLAYSTATION\ (?:\d|Vita)+)\)?;?(?:[:/ ](?P<version>[\dA-Z.]+)|/[A-Z]*)%ix',
 			$userAgent, $result);
 
 
-		// if nothing matched, return null (to avoid undefined index errors)
+		// If nothing matched, check for simple bot patterns
 		if (!isset($result['browser'][0], $result['version'][0])) {
-
-			if (preg_match('%^(?!Mozilla)(?P<browser>[A-Z\d\-]+)([/ :](?P<version>[\dA-Z.]+))?%ix', $userAgent, $result)) {
-				return [
-					'platform' => $platform ?: null,
-					'browser'  => $result['browser'],
-					'version'  => empty($result['version']) ? null : $result['version'],
-				];
+			// Try: bot/version with contact info "site.com botname/1.0 (+contact)"
+			if (preg_match('%(?P<browser>[A-Z\d\-]+)[/ ](?P<version>[\dA-Z.]+)\s*\(\+(?:https?:|[a-z\d._-]+@[a-z\d._-]+)%ix', $userAgent, $gr)) {
+				return ['platform' => $platform, 'browser' => $gr['browser'], 'version' => $gr['version']];
 			}
-			return $empty;
+			// Try: simple bot at start "BotName/version" (not Mozilla)
+			if (preg_match('%^(?!Mozilla)(?P<browser>[A-Z\d\-]+)([/ :](?P<version>[\dA-Z.]+))?%ix', $userAgent, $gr)) {
+				return ['platform' => $platform, 'browser' => $gr['browser'], 'version' => empty($gr['version']) ? null : $gr['version']];
+			}
+		}
+
+		if ((empty($result['browser'][0]) || ($result['prev'][0] !== '')) &&
+		    preg_match('%[(;]\s*(?P<browser>[^(/;]+)(?:[:/ ]v?(?P<version>[\dA-Z.]+)[^;)\s]*)?;?(?:\s*robot;)?\s*\+(?:https?:|[a-z\d._-]+@[a-z\d._-]+)%ix', $userAgent, $bot_result)) {
+			return ['platform' => $platform, 'browser' => trim($bot_result['browser']), 'version' => empty($bot_result['version']) ? null : $bot_result['version']];
+		}
+
+		if (!isset($result['browser'][0], $result['version'][0])) {
+			return ['platform' => $platform, 'browser' => null, 'version' => null];
 		}
 
 
@@ -100,7 +109,7 @@ class Useragentparser {
 				$version = $result['version'][array_search('Version', $result['browser'])];
 			}
 		}
-		else if ($platform == 'Nintendo 3DS' || $this->find($lowerBrowser, 'NintendoBrowser', $key)) {
+		else if ($this->find($lowerBrowser, 'NintendoBrowser', $key) || $platform == 'Nintendo 3DS') {
 			$browser = 'NintendoBrowser';
 			$version = $result['version'][$key];
 		}
@@ -118,7 +127,7 @@ class Useragentparser {
 				$part = substr($version, -2);
 				if (ctype_upper($part)) {
 					$version = substr($version, 0, -2);
-					$flags   = ['IP' => 'iPhone', 'IT' => 'iPad', 'AP' => 'Android', 'AT' => 'Android', 'WP' => 'Windows Phone', 'WT' => 'Windows'];
+					$flags   = ['IP' => 'iPhone','IT' => 'iPad','AP' => 'Android','AT' => 'Android','WP' => 'Windows Phone','WT' => 'Windows'];
 					if (is_string($part) && array_key_exists($part, $flags)) {
 						$platform = $flags[$part];
 					}
@@ -161,7 +170,7 @@ class Useragentparser {
 			$browser  = 'NetFront';
 		}
 
-		return ['platform' => $platform ?: null, 'browser' => $browser ?: null, 'version' => $version ?: null];
+		return ['platform' => $platform, 'browser' => $browser, 'version' => $version];
 	}
 
 	private function find($lowerBrowser, $search, &$key = null, &$value = null) {

@@ -1,9 +1,9 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated L/28/07/2025
+ * Updated D/01/11/2026
  *
- * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2008-2027 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
  *
  * This program is free software, you can redistribute it or modify
@@ -17,11 +17,18 @@
  * GNU General Public License (GPL) for more details.
  */
 
-require_once(DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php');
-
-if (version_compare(DOL_VERSION, '19.0.0', '<') && !class_exists('CommonHookActions')) {
+if (version_compare(DOL_VERSION, '19.0.0', '>=')) {
+	require_once(DOL_DOCUMENT_ROOT.'/core/class/commonhookactions.class.php');
+}
+else if (!class_exists('CommonHookActions')) {
 	class CommonHookActions {
-		// compat
+		public $resprints; // compat
+	}
+}
+
+if (!function_exists('getNonce')) {
+	function getNonce() {
+		return ''; // compat
 	}
 }
 
@@ -41,12 +48,7 @@ class ActionsApijs extends CommonHookActions {
 			$html .= '<link rel="prefetch" type="font/woff2" as="font" href="'.$this->getLru($conf, 'fonts/apijs/fontello.woff2').'">'."\n";
 			$html .= '<script nonce="'.getNonce().'" src="'.$this->getUrl($conf, 'js/apijs.min.js').'"></script>'."\n";
 
-			if (version_compare(DOL_VERSION, '19.0.0', '>='))
-				$this->resprints = $html;
-			else if (empty($hookmanager->resPrint))
-				$hookmanager->resPrint = $html;
-			else
-				$hookmanager->resPrint .= $html;
+			$this->resprints = $html;
 		}
 
 		return 0;
@@ -66,19 +68,14 @@ class ActionsApijs extends CommonHookActions {
 				$html = '<script nonce="'.getNonce().'">alert("Apijs: '.addslashes($t->getMessage()).'");</script>'."\n";
 			}
 
-			if (version_compare(DOL_VERSION, '19.0.0', '>='))
-				$this->resprints = $html;
-			else if (empty($hookmanager->resPrint))
-				$hookmanager->resPrint = $html;
-			else
-				$hookmanager->resPrint .= $html;
+			$this->resprints = $html;
 		}
 
 		return 0;
 	}
 
 	protected function getUrl($conf, $file) {
-		return dol_buildpath('custom/apijs/'.$file, 1).'?v=698';
+		return dol_buildpath('custom/apijs/'.$file, 1).'?v=699';
 	}
 
 	protected function getLru($conf, $file) {

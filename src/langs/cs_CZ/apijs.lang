@@ -1,4 +1,4 @@
-ApijsBrowserWarning = <strong>Warning:</strong> your browser <strong>%s %s</strong> is outdated, please <a %s>upgrade your browser</a>.
+ApijsBrowserWarning = <strong>Upozornění:</strong> váš prohlížeč <strong>%s %s</strong> je zastaralý, prosím <a %s>aktualizujte svůj prohlížeč</a>.
 ApijsExampleTitle1 = PHP manual
 ApijsExampleText1 = It is important to note that just because the mail was accepted for delivery, it doesn't mean the mail will actually reach the intended destination.
 ApijsExample = Například %d

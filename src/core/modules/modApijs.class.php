@@ -3,7 +3,7 @@
  * Created V/17/11/2023
  * Updated L/30/06/2025
  *
- * Copyright 2008-2025 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
+ * Copyright 2008-2027 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
  *
  * This program is free software, you can redistribute it or modify
@@ -32,12 +32,12 @@ class modApijs extends DolibarrModules {
 		$this->family                = 'base';
 		$this->name                  = 'Apijs';
 		$this->module_parts          = ['hooks' => ['main']];
-		$this->version               = '6.9.8';
+		$this->version               = '6.9.9';
 		$this->description           = 'JavaScript pop-ups and slideshow for Dolibarr.';
 		$this->const_name            = 'MAIN_MODULE_'.strtoupper($this->name); // not mb_strtoupper
 		$this->langfiles             = ['apijs@apijs'];
 		$this->phpmin                = [7,2];
-		$this->need_dolibarr_version = [5,0];
+		$this->need_dolibarr_version = [15,0];
 		$this->url_last_version      = 'https://raw.githubusercontent.com/luigifab/dolibarr-apijs/master/version.txt';
 		$this->hidden                = false;
 
