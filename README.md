@@ -1,5 +1,3 @@
--- NIGHTLY --
-
 Stop russian war. **🇺🇦 Free Ukraine!**
 
 # apijs
@@ -8,7 +6,7 @@ JavaScript pop-ups and slideshow for [Dolibarr](https://github.com/Dolibarr/doli
 
 For more information, go to https://www.luigifab.fr/apijs (IPv6 is required).
 
-- Current version: 6.9.9~nightly20261101
+- Current version: 6.9.9~nightly20261107
 - Compatibility: Dolibarr 15.0+ (24 included), PHP 7.2 / 7.3 / 7.4 / 8.0 / 8.1 / 8.2 / 8.3 / 8.4 / 8.5
 - Client compatibility: Firefox 36+, Chrome 32+, Opera 19+, Edge 16+, Safari 9+
 - License: GNU GPL 2.0+

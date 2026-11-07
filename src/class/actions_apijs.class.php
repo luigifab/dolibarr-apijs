@@ -1,7 +1,7 @@
 <?php
 /**
  * Created V/17/11/2023
- * Updated D/01/11/2026
+ * Updated L/02/11/2026
  *
  * Copyright 2008-2027 | Fabrice Creuzot (luigifab) <code~luigifab~fr>
  * https://github.com/luigifab/dolibarr-apijs
@@ -43,10 +43,10 @@ class ActionsApijs extends CommonHookActions {
 		if (!empty($conf->apijs->enabled)) {
 
 			$file  = ($langs->trans('DIRECTION') == 'rtl') ? 'css/apijs-screen-rtl.min.css' : 'css/apijs-screen.min.css';
-			$html  = '<link rel="stylesheet" media="screen" type="text/css" href="'.$this->getUrl($conf, $file).'">'."\n";
-			$html .= '<link rel="stylesheet" media="print"  type="text/css" href="'.$this->getUrl($conf, 'css/apijs-print.min.css').'">'."\n";
-			$html .= '<link rel="prefetch" type="font/woff2" as="font" href="'.$this->getLru($conf, 'fonts/apijs/fontello.woff2').'">'."\n";
-			$html .= '<script nonce="'.getNonce().'" src="'.$this->getUrl($conf, 'js/apijs.min.js').'"></script>'."\n";
+			$html  = '<link rel="stylesheet" media="screen" type="text/css" href="'.$this->getUrl($file).'">'."\n";
+			$html .= '<link rel="stylesheet" media="print"  type="text/css" href="'.$this->getUrl('css/apijs-print.min.css').'">'."\n";
+			$html .= '<link rel="prefetch" type="font/woff2" as="font" href="'.$this->getLnk('fonts/apijs/fontello.woff2').'">'."\n";
+			$html .= '<script nonce="'.getNonce().'" src="'.$this->getUrl('js/apijs.min.js').'"></script>'."\n";
 
 			$this->resprints = $html;
 		}
@@ -74,11 +74,11 @@ class ActionsApijs extends CommonHookActions {
 		return 0;
 	}
 
-	protected function getUrl($conf, $file) {
+	protected function getUrl($file) {
 		return dol_buildpath('custom/apijs/'.$file, 1).'?v=699';
 	}
 
-	protected function getLru($conf, $file) {
+	protected function getLnk($file) {
 		return dol_buildpath('custom/apijs/'.$file, 1).'?a3ab5acff3';
 	}
 }
